@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+      <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e496a4ccb2.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+    <title>To-Do List</title>
+</head>
+<body>
+    <div class="container m-5 p-2 rounded mx-auto bg-light shadow">
+        <!-- Todo Title section -->
+        <div class="row m-1 p-4">
+            <div class="col">
+                <div class="p-1 h1 text-center primary-colour mx-auto">
+                    <i class="fas fa-2x fa-check-square p-2"></i>
+                    <span class="title display-2">To-Do List</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Task section -->
+        <div class="row m-1 p-3">
+            <div class="col col-12 mx-auto">
+                <form class="form-row form-inline" action="/add" method="post">
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="description"></label>
+                        <input type="text" class="form-control" name="description" placeholder="Task Description">
+                    </div>
+                    <div class="form-group mx-sm-3 mb-2">
+                        <label for="due_date"></label>
+                        <div class="input-group date" id="datepicker" data-date-format="mm-dd-yyyy">
+                            <input type="text" name="due_date" class="form-control" placeholder="Due Date">
+                            <div class="input-group-addon input-group-append">
+                                <div class="input-group-text">
+                                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn primary-background mb-2">Add Task</button>
+                </form>
+            </div>
+        </div>
+        <!-- Task Content section -->
+        <div class="mb-4 mx-4 border-black-25 border-bottom"></div>
+        {% for task in todo_list%}
+            <div class="row mx-1 px-5 pb-3 w-80">
+                <div class="col col-1 d-flex align-items-center flex-column justify-content-center">
+                    {% if task.completed%}
+                        <a href="{{ url_for('update', id=task.id) }}"><i class="far fa-2x fa-check-square primary-colour"></i></a>
+                    {% else %}
+                        <a href="{{ url_for('update', id=task.id) }}"><i class="far fa-2x fa-square primary-colour"></i></i></a>
+                    {% endif %}
+                </div>
+                <div class="col col-10 mx-auto">
+                    <div class="row">
+                        {% if task.completed %}
+                            <s class="mb-0">{{task.description}}</s>
+                        {% else %}
+                            <p class="mb-0">{{task.description}}</p>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        {% if task.due_date %}
+                            <span class="small font-italic text-muted">{{task.due_date.strftime("%m-%d-%Y")}}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col col-1 d-flex align-items-center flex-column justify-content-center">
+                    <a href="{{ url_for('delete', id=task.id) }}"><i class="fas fa-2x fa-trash text-danger"></i></a>
+                </div>
+                
+            </div>
+        {% endfor %}
+    </div>
+</body>
+<script>
+    $("#datepicker").datepicker({ 
+        autoclose: true, 
+        todayHighlight: true
+    });
+</script>
+</html>

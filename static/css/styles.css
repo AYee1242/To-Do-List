@@ -1,0 +1,19 @@
+/* import the necessary Bootstrap files */
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+
+.title {
+  text-decoration: underline;
+}
+
+.form-row {
+  justify-content: center;
+}
+
+.primary-colour {
+  color: #ADD8E6;
+}
+
+.primary-background {
+  background-color: #ADD8E6;
+}
