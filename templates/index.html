@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/todo-icon.png') }}">
       <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/e496a4ccb2.js" crossorigin="anonymous"></script>
@@ -30,11 +31,11 @@
         <div class="row m-1 p-3">
             <div class="col col-12 mx-auto">
                 <form class="form-row form-inline" action="/add" method="post">
-                    <div class="form-group mx-sm-3 mb-2">
+                    <div class="form-group mx-100 mx-md-3">
                         <label for="description"></label>
                         <input type="text" class="form-control" name="description" placeholder="Task Description">
                     </div>
-                    <div class="form-group mx-sm-3 mb-2">
+                    <div class="form-group mr-100 mr-md-3">
                         <label for="due_date"></label>
                         <div class="input-group date" id="datepicker" data-date-format="mm-dd-yyyy">
                             <input type="text" name="due_date" class="form-control" placeholder="Due Date">
@@ -45,12 +46,13 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn primary-background mb-2">Add Task</button>
+                    <button type="submit" class="btn primary-background">Add Task</button>
                 </form>
             </div>
         </div>
         <!-- Task Content section -->
         <div class="mb-4 mx-4 border-black-25 border-bottom"></div>
+
         {% for task in todo_list%}
             <div class="row mx-1 px-5 pb-3 w-80">
                 <div class="col col-1 d-flex align-items-center flex-column justify-content-center">
@@ -77,9 +79,13 @@
                 <div class="col col-1 d-flex align-items-center flex-column justify-content-center">
                     <a href="{{ url_for('delete', id=task.id) }}"><i class="fas fa-2x fa-trash text-danger"></i></a>
                 </div>
-                
             </div>
         {% endfor %}
+        <div class="row mx-1 px-5 pb-3 w-80 justify-content-center">
+                <form action="{{url_for('sign_out')}}" method="post">
+                    <button type="submit" class="btn primary-background mb-2">Sign Out</button>
+                </form>
+        </div>
     </div>
 </body>
 <script>
