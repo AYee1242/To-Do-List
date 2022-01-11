@@ -17,6 +17,7 @@ bootstrap = Bootstrap(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL1")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
+db.create_all()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -160,5 +161,4 @@ def delete(id: int):
 
 
 if __name__ == "__main__":
-    db.create_all()
     app.run(debug=True)
