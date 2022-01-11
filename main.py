@@ -17,7 +17,6 @@ bootstrap = Bootstrap(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL1")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
-db.create_all()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -51,6 +50,7 @@ class User(UserMixin, db.Model):
     # The "user" refers to the user property in the BlogPost class.
     tasks = relationship("Task", back_populates="user")
 
+db.create_all()
 
 @app.route("/todo")
 def index():
