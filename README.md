@@ -1,3 +1,7 @@
 # To-Do-List
 
-A simple to-do list where you can add tasks and its due date.
+A web application that allows users to manage tasks.
+
+Built with Flask, Bootstrap and PostgreSQL. Deployed using Heroku.
+
+View website here: https://to-do-list-alexander.herokuapp.com/
